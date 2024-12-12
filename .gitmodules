@@ -1,0 +1,3 @@
+[submodule "bifrost"]
+	path = location_bifrost/bifrost
+	url = https://github.com/pmelsted/bifrost.git
