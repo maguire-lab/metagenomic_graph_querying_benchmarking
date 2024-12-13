@@ -1,3 +1,6 @@
-[submodule "bifrost"]
+[submodule "location_bifrost/bifrost"]
 	path = location_bifrost/bifrost
-	url = https://github.com/pmelsted/bifrost.git
+	url = https://github.com/David-Mahoney/location_bifrost.git
+[submodule "minigraph/Unicycler"]
+	path = minigraph/Unicycler
+	url = https://github.com/David-Mahoney/Unicycler_remove_overlaps.git
