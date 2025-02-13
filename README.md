@@ -43,7 +43,7 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
 
 ### Baseline ground truth
 - To know the ground truth of which AMR genes are present in the datasets, RGI v5.2.0 was run on the assemblies used to simulate the metagenomes.
-- See ```rgi.sh``` and ```concat.sh``` to concatenate the results into a single file.
+- See ```shell_scripts/rgi.sh``` and ```shell_scripts/concat.sh``` to concatenate the results into a single file.
 
 ## Process reads and generate graphs 
 - Run fastp v0.23.4 on short reads for all data sets.
@@ -55,11 +55,11 @@ fastp -i ERR2984773_1.fastq -I ERR2984773_2.fastq -o ERR2984773_fastp_out_1.fast
 filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fastq > simulated_sample0_aligned_reads_filtlong_out.fastq
 ```
 - Assemble reads using:
-    - SPAdes v3.15.5 ran in metagenome mode. See ```meta_spades_run.sh```
-    - Flye v2.9.2 ran in metagenome mode with --nano-corr option for pre-corrected nanopore reads. See ```metaflye.sh```
-    - Megahit v1.2.9 with the megahit fastg graph generation command on the largest (k=141) k-mer iteration. See ```megahit.sh```
+    - SPAdes v3.15.5 ran in metagenome mode. See ```shell_scripts/meta_spades_run.sh```
+    - Flye v2.9.2 ran in metagenome mode with --nano-corr option for pre-corrected nanopore reads. See ```shell_scripts/metaflye.sh```
+    - Megahit v1.2.9 with the megahit fastg graph generation command on the largest (k=141) k-mer iteration. See ```shell_scripts/megahit.sh```
         - fastg assembly graphs were converted to gfa format using Bandage v0.8.1. 
-    - Shasta v0.12.0. See ```shasta.sh```
+    - Shasta v0.12.0. See ```shell_scripts/shasta.sh```
 
 ## Graph querying
 - A Nextflow (v23.10.1) pipeline was used to run the graph querying tools on the assembly graphs.
@@ -108,21 +108,21 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 - Pathracer v3.16.0 was used to query the assembly graphs following the authors implementation in [graphamr](https://github.com/ablab/graphamr) which includes ORF identification followed by an RGI search of the ORFs.
 - Pathracer requires HMMs as input to be used as queries.
 - CARD v3.2.8 protein homolog model AMR gene families were subclustered at 90% amino acid identity using MMseqs2 v15.6 as not all AMR gene families are homologous. 
-    - See ```mmseqs_clust.sh```
+    - See ```shell_scripts/mmseqs_clust.sh```
 - These family clusters were then aligned with Muscle v5.1 and HMMs were built using HMMER v3.4.
-    - See ```muscle.sh``` and ```hmmbuild.sh```
+    - See ```shell_scripts/muscle.sh``` and ```shell_scripts/hmmbuild.sh```
 - See ```pathracer/pathracer.nf```
 
 ### RGI run on metagenomic contigs
 - To assess the relative sensitivity of the graph querying tools, RGI v5.2.0 was run on the metagenomic contigs using CARD v3.2.8 protein homolog model AMR genes.
-    - See ```rgi.sh``` and ```concat.sh``` to concatenate the results into a single file.
+    - See ```shell_scripts/rgi.sh``` and ```shell_scripts/concat.sh``` to concatenate the results into a single file.
 
 ### Read mapping analyses
 - To put graph querying precision and recall in the context of read mapping RGI-BWT (for short reads) and minimap (for long reads) were used to map reads to the CARD v3.2.8 protein homolog model AMR genes.
 - Note: Read mapping does not allow for genomic context investigation as graph querying and contig analysis do.
-    - See ```rgi_bwt.sh``` and ```minimap.sh```
+    - See ```shell_scripts/rgi_bwt.sh``` and ```shell_scripts/minimap.sh```
 - Minimap output was processed using samtools to calculate coverage
-    - See ```samtools_coverage.sh```
+    - See ```shell_scripts/samtools_coverage.sh```
 
 ## Output processing
 
@@ -131,7 +131,7 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 - The outputs of each graph querying tool and read analyses need to be processed before they can be compared with one another.
 - First, the outputs for each dataset and subsample need to be combined in a single file.
 - Additionally, SPAligner has various bugs that obsecure the location of an alignment in the graph. These must be corrected before proceeding. 
-    - See ```combine_subsampled_data.R```
+    - See ```R_data_analysis_visualisation/combine_subsampled_data.R```
 
 ### Determining the best hit per locus
 - Aside from Pathracer, no other tool identifies an ORF and assigns a single best hit to that locus. 
@@ -140,7 +140,7 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 ![figs6](figure_drafts/Figure_S6.svg)
 - Once each alignment has been assigned a hit locus, the hit with the longest query coverage and best percent identity is selected as the best hit for that locus.
 - To assign hit loci to all alignment we use a brute force strategy that searches all alignments against all alignments. If using a dataset of similar size to this study expect this script to take a long time. If run in parallel for each tool, expect ~50 hours on a M1 Macbook Pro. 
-- See ```subsampled_hit_region.R```
+- See ```R_data_analysis_visualisation/subsampled_hit_region.R```
 
 ## Calculating precision and recall
 - In this study we calculated precision and recall for both the binary presence/absense of the AMR gene/family cluster as well as the quantity of the AMR gene/family cluster as some AMR genes are present more than once in the datasets. 
@@ -150,23 +150,23 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 ### read precision and recall
 - read precision and recall were calculated for each dataset separately as there are fewer datsets because they are not yet assembled by multiple assemblers. 
 - The outputs are used in the following R scipts 
-- For gene level precision and recall see ```read_analyses.R```
-- For family cluster level precision and recall see ```read_family_analyses.R```
+- For gene level precision and recall see ```R_data_analysis_visualisation/read_analyses.R```
+- For family cluster level precision and recall see ```R_data_analysis_visualisation/read_family_analyses.R```
 
 ### Binary
-- To calculate precision and recall for each dataset of AMR gene presence/absense generating Figures 1 and 3 see ```binary_accuracy.R```
-- To calculate precision and recall for each dataset of AMR gene family cluster presence/absense generating Figure 2 see ```binary_accuracy_family.R```
+- To calculate precision and recall for each dataset of AMR gene presence/absense generating Figures 1 and 3 see ```R_data_analysis_visualisation/binary_accuracy.R```
+- To calculate precision and recall for each dataset of AMR gene family cluster presence/absense generating Figure 2 see ```R_data_analysis_visualisation/binary_accuracy_family.R```
 
 ### Quantity
-- To calculate precision and recall for each dataset of AMR gene quantity generating Figure S4 see ```accuracy.R```
-- To calculate precision and recall for each dataset of AMR gene family cluster quantity generating Figure S5 see ```accuracy_family.R```
+- To calculate precision and recall for each dataset of AMR gene quantity generating Figure S4 see ```R_data_analysis_visualisation/accuracy.R```
+- To calculate precision and recall for each dataset of AMR gene family cluster quantity generating Figure S5 see ```R_data_analysis_visualisation/accuracy_family.R```
 
 ### Combining graph querying and contig querying
-- To combine the results of the graph querying tools (graphaligner in our case) with contig querying generating Figure 4 see ```contig_graph_combo.R```
+- To combine the results of the graph querying tools (graphaligner in our case) with contig querying generating Figure 4 see ```R_data_analysis_visualisation/contig_graph_combo.R```
 
 ### Examining which tool finds the most multi-segment hits
-- To examine which tool finds the most multi-segment hits generating Figure S3 see ```multi-seg_hits.R```
+- To examine which tool finds the most multi-segment hits generating Figure S3 see ```R_data_analysis_visualisation/multi-seg_hits.R```
 
 ## Computational performance
-- To generate figure S1 and figure S2 describing the log10 runtimes and the peak RSS for each tool see ```comp_resources.R```
+- To generate figure S1 and figure S2 describing the log10 runtimes and the peak RSS for each tool see ```R_data_analysis_visualisation/comp_resources.R```
 - Nextflow was used to measure these metrics for each tool. 
