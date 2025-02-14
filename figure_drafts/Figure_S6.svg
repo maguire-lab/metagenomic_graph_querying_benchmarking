@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed, 2023-07-21)"
-   sodipodi:docname="what_does_a_hit_look_like_summary_figure.svg"
+   sodipodi:docname="Figure_S6.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,12 +23,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="422.84984"
-     inkscape:cy="258.80108"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     inkscape:window-x="1512"
+     inkscape:zoom="1"
+     inkscape:cx="568"
+     inkscape:cy="399.5"
+     inkscape:window-width="1520"
+     inkscape:window-height="972"
+     inkscape:window-x="1606"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg1" />
@@ -52,12 +52,12 @@
        transform="translate(65.933682,60.721873)" />
   </g>
   <rect
-     style="fill:#d9d9d9;fill-opacity:1;stroke:#000000;stroke-width:0.796;stroke-linejoin:round;stroke-dasharray:none"
+     style="fill:#d9d9d9;fill-opacity:1;stroke:#000000;stroke-width:0.774555;stroke-linejoin:round;stroke-dasharray:none"
      id="rect1-9"
-     width="179.64771"
-     height="6.9982333"
-     x="70.617645"
-     y="47.248322" />
+     width="169.57858"
+     height="7.0196786"
+     x="80.697487"
+     y="47.237598" />
   <rect
      style="fill:#fb8072;stroke:#000000;stroke-width:0.625235;stroke-linejoin:round;stroke-dasharray:none;fill-opacity:1"
      id="rect3-0"
@@ -1681,37 +1681,6 @@
        style="fill:#000000;stroke-width:0.339327"
        x="233.38678"
        y="134.38979">Graph Segment</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:4.23333px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#000000;stroke:#000000;stroke-width:0;stroke-linejoin:round;stroke-dasharray:none"
-     x="53.181244"
-     y="168.01042"
-     id="text316"><tspan
-       sodipodi:role="line"
-       id="tspan316"
-       style="fill:#000000;stroke-width:0;stroke-dasharray:none"
-       x="53.181244"
-       y="168.01042">Figure X. Graph alignment scenarios and which types of graph alignments get assigned within the same hit locus or in </tspan><tspan
-       sodipodi:role="line"
-       style="fill:#000000;stroke-width:0;stroke-dasharray:none"
-       x="53.181244"
-       y="173.30208"
-       id="tspan317">distinct hit loci. Hit locus A covers single segment hits, duplicate hits in the exact locus, and smaller nested hits within them. </tspan><tspan
-       sodipodi:role="line"
-       style="fill:#000000;stroke-width:0;stroke-dasharray:none"
-       x="53.181244"
-       y="178.59375"
-       id="tspan318">Overlapping hits are assigned distint loci (B and C). Multi segment hits are assigned a dictinct locus if they align to different </tspan><tspan
-       sodipodi:role="line"
-       style="fill:#000000;stroke-width:0;stroke-dasharray:none"
-       x="53.181244"
-       y="183.88541"
-       id="tspan319">segments (D, E, and F). However, as seen in locus F, when there is a nested multi-segment alignment, they are assigned to the </tspan><tspan
-       sodipodi:role="line"
-       style="fill:#000000;stroke-width:0;stroke-dasharray:none"
-       x="53.181244"
-       y="189.17706"
-       id="tspan320">same hit region. Once hit loci are identified, the best hit for each locus is selected. </tspan></text>
   <path
      style="opacity:0.5;fill:#808080;stroke:#000000;stroke-width:0.252;stroke-linejoin:round;stroke-dasharray:1.008, 0.252;stroke-dashoffset:0"
      d="m 149.6021,25.68743 0.0114,3.155182"
