@@ -1,6 +1,10 @@
 # Metagenomic assembly graph querying benchmarking sensitivity investigation
+
 [![DOI](https://zenodo.org/badge/881424901.svg)](https://doi.org/10.5281/zenodo.16987655)
-This repository accompanies the paper: Best of Both Worlds? Optimising Graph-Based Antimicrobial Resistance Gene Profiling. The following describes in more detail the methods used including metagenome simulation, assembly, and graph querying. Accompanying scripts, pipeline, and modified bioinformatics tools are included in this repository.
+
+This repository accompanies the paper: Best of Both Worlds? Optimising Graph-Based Antimicrobial Resistance Gene Profiling. 
+
+The following describes in more detail the methods used including metagenome simulation, assembly, and graph querying. Accompanying scripts, pipeline, and modified bioinformatics tools are included in this repository.
 
 ## Simulated dataset generation
 
@@ -35,8 +39,8 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
     ```
 ### Real data [ZymoBIOMICS microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468)
 - Short reads of individual genomes exist in the SRA.
-- Short read mi-seq metagenome: ERR2984773
-- Long read GridIon metagenome: ERR3152364
+- Short read MiSeq metagenome: ERR2984773
+- Long read GridION metagenome: ERR3152364
 
 ### Simulated mobile element data
 - Same taxa and mobile elements as [this metagenomic assembly paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7660262/)
@@ -138,7 +142,7 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 - Aside from Pathracer, no other tool identifies an ORF and assigns a single best hit to that locus. 
 - CARD is a redundant database in the sense that very similar sequences are present in the database. These homologous sequences will all align to a single region in the graph and the best one must be selected for each locus. 
 - Figure S6 described how in this study we have defined a hit locus in the context of a graph and assigned the best hit to that locus. 
-![figs6](figure_drafts/Figure_S6.svg)
+![figs6](figures/Figure_S6.svg)
 - Once each alignment has been assigned a hit locus, the hit with the longest query coverage and best percent identity is selected as the best hit for that locus.
 - To assign hit loci to all alignments we use a brute force strategy that searches all alignments against all alignments. If using a dataset of similar size to this study expect this script to take a long time. If run in parallel for each tool, expect ~50 hours on a M1 Macbook Pro. 
 - See ```R_data_analysis_visualisation/subsampled_hit_region.R```
