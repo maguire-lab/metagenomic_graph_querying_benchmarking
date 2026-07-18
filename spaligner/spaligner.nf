@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// nextflow pipline to run spaliner allowing for the nextflow built in measurement of computational resources
+// nextflow pipline to run spaligner allowing for the nextflow built in measurement of computational resources
 
 // establish input parameters, need the graphs and the card data in .fasta format
 
@@ -14,7 +14,7 @@ Channel
 // establish out directory
 params.outdir = "${workflow.launchDir}/final_results"
 
-process spaliner {
+process spaligner {
     //maxForks 1
     publishDir "$params.outdir/", mode: 'copy', pattern : '*.tsv'
 
@@ -29,11 +29,11 @@ process spaliner {
 
     script:
     """
-    /home/david/dm-lab/graph_searching_sarand/spaliner/spades/assembler/build/bin/spaligner /home/david/dm-lab/graph_searching_sarand/spaliner/spaliner_config.yaml -d nanopore -g $graph -s $card -k 55 -o ./
-    mv alignment.tsv ${graphID}_spaliner.tsv
+    /home/david/dm-lab/graph_searching_sarand/spaligner/spades/assembler/build/bin/spaligner /home/david/dm-lab/graph_searching_sarand/spaligner/spaligner_config.yaml -d nanopore -g $graph -s $card -k 55 -o ./
+    mv alignment.tsv ${graphID}_spaligner.tsv
     """
 }
 
 workflow {
-    spaliner(graph, params.card)
+    spaligner(graph, params.card)
 }

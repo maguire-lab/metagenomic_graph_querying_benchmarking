@@ -27,7 +27,7 @@ include {trimGraph; minigraph} from '../minigraph/minigraph.nf'
 include {PATHRACER} from '../pathracer/pathracer.nf'
 include {MMSEQS_DB; MMSEQS_EXTRACT_ORFS; MMSEQS_CLUSTER} from '../pathracer/modules/mmseqs'
 include {RGI} from '../pathracer/modules/rgi'
-include {spaliner} from '../spaliner/spaliner.nf'
+include {spaligner} from '../spaligner/spaligner.nf'
 
 
 workflow {
@@ -39,5 +39,5 @@ workflow {
     PATHRACER(params.hmm, graph)
     MMSEQS_DB(PATHRACER.out.fasta) | MMSEQS_EXTRACT_ORFS | MMSEQS_CLUSTER
     RGI(MMSEQS_CLUSTER.out.orfs_rep_seq)
-    spaliner(graph, params.card)
+    spaligner(graph, params.card)
 }

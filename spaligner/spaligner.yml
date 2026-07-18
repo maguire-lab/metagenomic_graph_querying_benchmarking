@@ -1,4 +1,4 @@
-name: spaliner
+name: spaligner
 channels:
   - bioconda
   - conda-forge
@@ -36,4 +36,4 @@ dependencies:
   - tzdata=2023d=h0c530f3_0
   - wheel=0.42.0=pyhd8ed1ab_0
   - xz=5.2.6=h166bdaf_0
-prefix: /home/david/mambaforge/envs/spaliner
+prefix: /home/david/mambaforge/envs/spaligner
