@@ -7,7 +7,7 @@ minigraph_all<-read_csv("final_results/minigraph_all.csv")
 bifrost_all<-read_csv("final_results/bifrost_all.csv")
 bandage_all<-read_csv("final_results/bandage_all.csv")
 graphaligner_all<-read_csv("final_results/graphaligner_all.csv")
-spaliner_all<-read_csv("final_results/spaliner_all.csv")
+spaligner_all<-read_csv("final_results/spaligner_all.csv")
 pathracer_all<-read_csv("final_results/pathracer_all.csv")
 
 ### Minigraph: Calculate % identity and % query coverage 
@@ -311,35 +311,35 @@ write_csv(graphaligner_hits,"final_results/graphaligner_hits.csv")
 ### SPAliner ###
 
 ## separate out query column 
-spaliner_all<-spaliner_all%>%
+spaligner_all<-spaligner_all%>%
   separate_wider_delim(query, "|", names = c("query_name","ARO","family"))
 
 ## filter out any hits less than 50% query coverage 
 
-spaliner_all<-spaliner_all%>%
+spaligner_all<-spaligner_all%>%
   filter(perc_query_cov > 0.5)
 
 ## create segments list 
-spaliner_all$segs<-paste(spaliner_all$path,spaliner_all$graph,sep = "_")
+spaligner_all$segs<-paste(spaligner_all$path,spaligner_all$graph,sep = "_")
 
-segs_SPA<-unique(spaliner_all$segs)
+segs_SPA<-unique(spaligner_all$segs)
 
 # Assign hit region 
 
-spaliner_all$hit_region<-0
+spaligner_all$hit_region<-0
 counter<-0
 
-## for each unique segment in the spaliner results
+## for each unique segment in the spaligner results
 for (i in 1:length(segs_SPA)) {
   # for each instance of that segment
-  for (j in grep(segs_SPA[i],spaliner_all$segs,fixed = TRUE)) {
+  for (j in grep(segs_SPA[i],spaligner_all$segs,fixed = TRUE)) {
     # Find that path start where a hit region hasn't been assigned, smallest value on segment, as hit regions get assigned, all non-nested segments get identified 
-    PS<-spaliner_all%>%
+    PS<-spaligner_all%>%
       filter(segs == segs_SPA[i] & hit_region == 0)%>%
       summarise(across(aln_start_seg,min))%>%
       pull(aln_start_seg)
     ## find the max alignment length for that PS
-    aln_max<-spaliner_all%>%
+    aln_max<-spaligner_all%>%
       filter(segs == segs_SPA[i] & hit_region == 0 & aln_start_seg == PS)%>%
       summarise(across(aln_length_on_path,max))%>%
       pull(aln_length_on_path)
@@ -350,10 +350,10 @@ for (i in 1:length(segs_SPA)) {
     if (exists("PS") & exists("PE")) {
       ##add a new hit region number 
       counter<-counter+1 
-      ## for each row in spaliner_all, look for hit region coordinates and assign new hit region 
-      for (n in 1:nrow(spaliner_all)) {
-        if (spaliner_all[n,"segs"] == segs_SPA[i] & spaliner_all[n,"aln_start_seg"] >= PS & spaliner_all[n,"aln_end_seg"]<=PE & spaliner_all[n,"hit_region"] == 0) {
-          spaliner_all[n,"hit_region"]<-counter
+      ## for each row in spaligner_all, look for hit region coordinates and assign new hit region 
+      for (n in 1:nrow(spaligner_all)) {
+        if (spaligner_all[n,"segs"] == segs_SPA[i] & spaligner_all[n,"aln_start_seg"] >= PS & spaligner_all[n,"aln_end_seg"]<=PE & spaligner_all[n,"hit_region"] == 0) {
+          spaligner_all[n,"hit_region"]<-counter
           print("assigned hit region:")
           print(counter)
         }
@@ -369,18 +369,18 @@ for (i in 1:length(segs_SPA)) {
 
 ## determine number of unique hit regions 
 
-length(unique(spaliner_all$hit_region))
+length(unique(spaligner_all$hit_region))
 
 ## Summarize data for each hit region, i.e. pick the best hit %ID>%querycov>length
 
-spaliner_hits<-spaliner_all%>%
+spaligner_hits<-spaligner_all%>%
   group_by(hit_region)%>%
   top_n(1,perc_query_cov)%>%
   top_n(1,aln_length_on_path)%>%
   top_n(1,ARO)
 
 ##write
-write_csv(spaliner_hits,"final_results/spaliner_hits.csv")
+write_csv(spaligner_hits,"final_results/spaligner_hits.csv")
 
 ### Pathracer ###
 

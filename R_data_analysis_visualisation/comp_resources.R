@@ -13,7 +13,7 @@ tr_GA<-read_tsv("final_trace_graphAligner.tsv")
 tr_GA$tool<-"GraphAligner"
 tr_miniG<-read_tsv("final_trace_minigraph.tsv")
 tr_miniG$tool<-"Minigraph"
-tr_spa<-read_tsv("final_trace_spaliner.tsv")
+tr_spa<-read_tsv("final_trace_spaligner.tsv")
 tr_spa$tool<-"SPAligner"
 tr_path<-read_tsv("final_trace_pathracer.tsv")
 tr_path$tool<-"Pathracer"

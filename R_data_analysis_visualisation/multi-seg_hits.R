@@ -16,8 +16,8 @@ names(bandage)[names(bandage) == 'Query covered by hits'] <- 'perc_query_cov'
 graphaligner<-read_csv("final_results/graphaligner_hits.csv")
 colnames(graphaligner)[colnames(graphaligner) == 'perc_identity'] <- 'perc_ID'
 
-## spaliner
-spaliner<-read_csv("final_results/spaliner_hits.csv")
+## spaligner
+spaligner<-read_csv("final_results/spaligner_hits.csv")
 
 ##fix pathracer columns to be ratios
 
@@ -90,28 +90,28 @@ minigraph<-minigraph%>%
 
 minigraph$tool<-"Minigraph"
 
-#spaliner
+#spaligner
 
 multi_count<-c()
 
-for (i in 1:nrow(spaliner)) {
-  tmp<-if_else(grepl(",",spaliner[i,"path"]),1,0)
+for (i in 1:nrow(spaligner)) {
+  tmp<-if_else(grepl(",",spaligner[i,"path"]),1,0)
   multi_count<-c(multi_count,tmp)
   rm(tmp)
 }
 
-spaliner$multi_count<-multi_count
+spaligner$multi_count<-multi_count
 
-spaliner<-spaliner%>%
+spaligner<-spaligner%>%
   group_by(graph)%>%
   summarise(multi_hits=sum(multi_count))
 
-spaliner$tool<-"SPAligner"
+spaligner$tool<-"SPAligner"
 
 
 #combine data frames
 
-all<-rbind(bandage,graphaligner,minigraph,spaliner)
+all<-rbind(bandage,graphaligner,minigraph,spaligner)
 
 ##plot
 

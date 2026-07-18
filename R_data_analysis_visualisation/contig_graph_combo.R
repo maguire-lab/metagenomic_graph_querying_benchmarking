@@ -64,7 +64,7 @@ top_reads<-top_PR%>%
 PR_conga<-PR_conga%>%
   separate_wider_delim(dat,"_",names = c("tool","data_type","read_type","subsample_perc","assembler","perc_ID","perc_query_coverage"),too_few = "align_start")
 
-PR_conga<-rbind(PR_conga,top_reads%>%select(-cuttoffs,-f_score))
+PR_conga<-rbind(PR_conga,top_reads%>%select(-cutoffs,-f_score))
 
 PR_conga$data_type<-gsub("HC","High Complexity",PR_conga$data_type)
 PR_conga$data_type<-gsub("LC","Low Complexity",PR_conga$data_type)
@@ -156,7 +156,7 @@ top_reads<-top_PR%>%
 PR_conga_LR<-PR_conga_LR%>%
   separate_wider_delim(dat,"_",names = c("tool","data_type","read_type","subsample_perc","assembler","perc_ID","perc_query_coverage"),too_few = "align_start")
 
-PR_conga_LR<-rbind(PR_conga_LR,top_reads%>%select(-cuttoffs,-f_score))
+PR_conga_LR<-rbind(PR_conga_LR,top_reads%>%select(-cutoffs,-f_score))
 
 PR_conga_LR$data_type<-gsub("HC","High Complexity",PR_conga_LR$data_type)
 PR_conga_LR$data_type<-gsub("LC","Low Complexity",PR_conga_LR$data_type)

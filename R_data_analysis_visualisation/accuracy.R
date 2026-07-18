@@ -70,8 +70,8 @@ names(bandage)[names(bandage) == 'Query covered by hits'] <- 'perc_query_cov'
 graphaligner<-read_csv("final_results/graphaligner_hits.csv")
 colnames(graphaligner)[colnames(graphaligner) == 'perc_identity'] <- 'perc_ID'
 
-## spaliner
-spaliner<-read_csv("final_results/spaliner_hits.csv")
+## spaligner
+spaligner<-read_csv("final_results/spaligner_hits.csv")
 
 # pathracer
 pathracer<-read_csv("final_results/pathracer_hits.csv")
@@ -253,7 +253,7 @@ calculate_PR<-function(tool,classification_file){
 
 graph_types<-unique(contigs_rgi$graph)
 tool_list<-c("BAN","BI","GA","MG","PA","SPA","CON")
-hit_list<-list(bandage,bifrost,graphaligner,minigraph,pathracer,spaliner,contigs_rgi)
+hit_list<-list(bandage,bifrost,graphaligner,minigraph,pathracer,spaligner,contigs_rgi)
 
 for (i in 1:length(tool_list)) {
   for (graph in graph_types) {
@@ -291,12 +291,12 @@ PR_all<-PR_all%>%
 
 ## plot
 
-PR_all$cuttoffs<-paste(PR_all$perc_ID,PR_all$perc_query_coverage,sep = "_")
+PR_all$cutoffs<-paste(PR_all$perc_ID,PR_all$perc_query_coverage,sep = "_")
 
 #minigraph fig
 PR_all%>%
   filter(tool == "MG" & !is.nan(precision))%>%
-  ggplot(aes(x=recall,y=precision,label = cuttoffs))+
+  ggplot(aes(x=recall,y=precision,label = cutoffs))+
   geom_point(aes(shape=read_type,colour=data_type))+
   geom_text(vjust=1.5, size = 2,check_overlap = TRUE)+
   facet_wrap(~data_type,scales = "free_x")+
@@ -314,7 +314,7 @@ PR_all%>%
 # bandage fig
 PR_all%>%
   filter(tool == "BAN" & !is.nan(precision))%>%
-  ggplot(aes(x=recall,y=precision,label = cuttoffs))+
+  ggplot(aes(x=recall,y=precision,label = cutoffs))+
   geom_point(aes(shape=read_type,colour=data_type))+
   geom_text(vjust=1.5, size = 2,check_overlap = TRUE)+
   facet_wrap(~data_type,scales = "free_x")+
@@ -323,7 +323,7 @@ PR_all%>%
 # Grapgaligner fig
 PR_all%>%
   filter(tool == "GA" & !is.nan(precision))%>%
-  ggplot(aes(x=recall,y=precision,label = cuttoffs))+
+  ggplot(aes(x=recall,y=precision,label = cutoffs))+
   geom_point(aes(shape=read_type,colour=data_type))+
   geom_text(vjust=1.5, size = 2,check_overlap = TRUE)+
   facet_wrap(~data_type,scales = "free_x")+
@@ -341,7 +341,7 @@ PR_all%>%
 #Pathracer fig
 PR_all%>%
   filter(tool == "PA" & !is.nan(precision))%>%
-  ggplot(aes(x=recall,y=precision,label = cuttoffs))+
+  ggplot(aes(x=recall,y=precision,label = cutoffs))+
   geom_point(aes(shape=read_type,colour=data_type))+
   geom_text(vjust=1.5, size = 2,check_overlap = TRUE)+
   facet_wrap(~data_type,scales = "free_x")+
@@ -350,7 +350,7 @@ PR_all%>%
 #contigs fig
 PR_all%>%
   filter(tool == "CON" & !is.nan(precision))%>%
-  ggplot(aes(x=recall,y=precision,label = cuttoffs))+
+  ggplot(aes(x=recall,y=precision,label = cutoffs))+
   geom_point(aes(shape=read_type,colour=data_type))+
   geom_text(vjust=1.5, size = 2,check_overlap = TRUE)+
   facet_wrap(~data_type,scales = "free_x")+
