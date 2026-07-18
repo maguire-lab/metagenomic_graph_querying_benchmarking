@@ -17,7 +17,7 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
     simulator.py metagenome -gl assembly_paths_high_nanosim_in.tsv -a abundances_high_nanosim_in.tsv -dl dna_type_high_nanosim_in.tsv -c pre-trained_models/metagenome_ERR3152364_Even/training --chimeric -t 18 --fastq -b guppy
     ```
 - Simulate Short read metagenome
-    - [x] InSilicoSeq v1.6.0 60,000,000 reads (~60% of the original number of reads corresponding to parokayotic content)
+    - [x] InSilicoSeq v1.6.0 60,000,000 reads (~60% of the original number of reads corresponding to prokaryotic content)
     ```
     iss generate --draft /data/raid1_HDD/David/graph_searching_sarand/high_complexity_assemblies/*.fna --abundance_file HC_iss_infile.tsv --model miseq --output miseq_reads --cpus 12 --n_reads 60M
     ```
@@ -39,7 +39,7 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
 - Long read GridIon metagenome: ERR3152364
 
 ### Simulated mobile element data
-- Same taxa and mobile elemnts as [this metagenomic assembly paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7660262/)
+- Same taxa and mobile elements as [this metagenomic assembly paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7660262/)
 - Simulated using InSilicoSeq v1.6.0 at 30M reads (same as in original paper) and Nanosim (3M reads) as above.
 
 ### Baseline ground truth
@@ -85,12 +85,12 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 - CARD v3.2.8 protein homolog model AMR genes converted to .fastq format were used as queries.
 - fasta files were converted to fastq format using Biopython (v1.83)
 - SPAligner requires a yaml config file specifying tool parameters.
-- See ```spaligner/spaligner.nf```
+- See ```spaligner```
 
 ### Minigraph
 - Minigraph v0.2.0 was used to query the assembly graphs.
 - CARD v3.2.8 protein homolog model AMR genes were used as queries.
-- Minigraph does not support sequence graphs with overlapping segments. To remove overlaps in teh SPAdes and Megahit assembly graphs, Unicycler was adapted and used. 
+- Minigraph does not support sequence graphs with overlapping segments. To remove overlaps in the SPAdes and Megahit assembly graphs, Unicycler was adapted and used. 
 - The Unicycler v0.5.0 function ```remove_all_overlaps()``` was modified to avoid trimming segments to a length of 0 and was implemented in ```remove_overlaps.py```. 
 - To install run ```python3 setup.py install``` in the ```minigraph/Unicycler``` directory as described in the [Unicycler documentation](https://github.com/rrwick/Unicycler).
 - See ```minigraph/minigraph.nf```
@@ -99,8 +99,8 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 - Bifrost v1.3.0 was used to query the assembly graphs with the -P setting to output the ratio of found k-mers 
 - CARD v3.2.8 protein homolog model AMR genes were used as queries.
 - Natively, Bifrost does not locate the position of the k-mer matches in the graph; however, this information is identified as part of the Bifrost UnitigMap data structure.
-- Search.tcc was modified in Bifrost to output the first k-mer of the unitig (segment) containing the pseudoalignemnt as well as the first k-mer of the query sequence.
-- These k-mers are writted out during the verbose output of Bifrost. 
+- Search.tcc was modified in Bifrost to output the first k-mer of the unitig (segment) containing the pseudoalignment as well as the first k-mer of the query sequence.
+- These k-mers are written out during the verbose output of Bifrost. 
 - Bifrost requires all .gfa files to have the standard [gfa format header](https://gfa-spec.github.io/GFA-spec/GFA1.html). These were added to gfa files that do not have them (e.g. SPAdes). 
 - To install the modified Bifrost found in ```location_bifrost/bifrost``` install from source as described in the [Bifrost documentation](https://github.com/pmelsted/bifrost)
 - See ```location_bifrost/uni-bifrost.nf```
@@ -131,32 +131,32 @@ filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fas
 - The following scripts are written in R and are designed to be run in RStudio. If you decide to use any of these scripts, ensure file paths are correct for data input and output.
 - The outputs of each graph querying tool and read analyses need to be processed before they can be compared with one another.
 - First, the outputs for each dataset and subsample need to be combined in a single file.
-- Additionally, SPAligner has various bugs that obsecure the location of an alignment in the graph. These must be corrected before proceeding. 
+- Additionally, SPAligner has various bugs that obscure the location of an alignment in the graph. These must be corrected before proceeding. 
     - See ```R_data_analysis_visualisation/combine_subsampled_data.R```
 
 ### Determining the best hit per locus
 - Aside from Pathracer, no other tool identifies an ORF and assigns a single best hit to that locus. 
-- CARD is a redundant database inthe sense that very similar sequences are present in the database. These homologous sequences will all align to a single region in the graph and the best one must be selected for each locus. 
+- CARD is a redundant database in the sense that very similar sequences are present in the database. These homologous sequences will all align to a single region in the graph and the best one must be selected for each locus. 
 - Figure S6 described how in this study we have defined a hit locus in the context of a graph and assigned the best hit to that locus. 
 ![figs6](figure_drafts/Figure_S6.svg)
 - Once each alignment has been assigned a hit locus, the hit with the longest query coverage and best percent identity is selected as the best hit for that locus.
-- To assign hit loci to all alignment we use a brute force strategy that searches all alignments against all alignments. If using a dataset of similar size to this study expect this script to take a long time. If run in parallel for each tool, expect ~50 hours on a M1 Macbook Pro. 
+- To assign hit loci to all alignments we use a brute force strategy that searches all alignments against all alignments. If using a dataset of similar size to this study expect this script to take a long time. If run in parallel for each tool, expect ~50 hours on a M1 Macbook Pro. 
 - See ```R_data_analysis_visualisation/subsampled_hit_region.R```
 
 ## Calculating precision and recall
-- In this study we calculated precision and recall for both the binary presence/absense of the AMR gene/family cluster as well as the quantity of the AMR gene/family cluster as some AMR genes are present more than once in the datasets. 
+- In this study we calculated precision and recall for both the binary presence/absence of the AMR gene/family cluster as well as the quantity of the AMR gene/family cluster as some AMR genes are present more than once in the datasets. 
 - As explained in the paper, we chose to focus on the binary results as assembly graphs collapse repeated sequence into single segments/unitigs making coverage a better metric for gene quantity. 
-- The optimal percent identity and query coverage thresholds for each tool and dataset were also determined and used in the final figures. These thresholds can inform useres of these tools as to which thresholds may be appropriate for their tool and dataset complexity. 
+- The optimal percent identity and query coverage thresholds for each tool and dataset were also determined and used in the final figures. These thresholds can inform users of these tools as to which thresholds may be appropriate for their tool and dataset complexity. 
 
 ### read precision and recall
-- read precision and recall were calculated for each dataset separately as there are fewer datsets because they are not yet assembled by multiple assemblers. 
-- The outputs are used in the following R scipts 
+- read precision and recall were calculated for each dataset separately as there are fewer datasets because they are not yet assembled by multiple assemblers. 
+- The outputs are used in the following R scripts 
 - For gene level precision and recall see ```R_data_analysis_visualisation/read_analyses.R```
 - For family cluster level precision and recall see ```R_data_analysis_visualisation/read_family_analyses.R```
 
 ### Binary
-- To calculate precision and recall for each dataset of AMR gene presence/absense generating Figures 1 and 3 see ```R_data_analysis_visualisation/binary_accuracy.R```
-- To calculate precision and recall for each dataset of AMR gene family cluster presence/absense generating Figure 2 see ```R_data_analysis_visualisation/binary_accuracy_family.R```
+- To calculate precision and recall for each dataset of AMR gene presence/absence generating Figures 1 and 3 see ```R_data_analysis_visualisation/binary_accuracy.R```
+- To calculate precision and recall for each dataset of AMR gene family cluster presence/absence generating Figure 2 see ```R_data_analysis_visualisation/binary_accuracy_family.R```
 
 ### Quantity
 - To calculate precision and recall for each dataset of AMR gene quantity generating Figure S4 see ```R_data_analysis_visualisation/accuracy.R```

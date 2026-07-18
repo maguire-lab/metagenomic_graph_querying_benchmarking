@@ -71,7 +71,7 @@ tr_all<-tr_all%>%
   mutate(realtime = realtime/1000, peak_rss=peak_rss/1000000000)
 
 
-# convert data_type, read_type, and assembler columns to prper names
+# convert data_type, read_type, and assembler columns to proper names
 tr_all$data_type<-gsub("HC","High Complexity",tr_all$data_type)
 tr_all$data_type<-gsub("LC","Low Complexity",tr_all$data_type)
 tr_all$data_type<-gsub("RZ","Real Zymbiomics",tr_all$data_type)
