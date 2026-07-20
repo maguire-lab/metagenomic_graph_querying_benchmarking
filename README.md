@@ -38,7 +38,7 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
     iss generate --draft /data/raid1_HDD/David/graph_searching_sarand/low_complexity_assemblies/*.fna --abundance_file abundances_in.tsv --model miseq --output miseq_reads --cpus 12 --n_reads 30M
     ```
 ### Real data [ZymoBIOMICS microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468)
-- Short reads of individual genomes exist in the SRA.
+- Short reads of individual genomes in accessions: `reference_accessions/ZymoBIOMICS_accns.txt`
 - Short read MiSeq metagenome: ERR2984773
 - Long read GridION metagenome: ERR3152364
 
