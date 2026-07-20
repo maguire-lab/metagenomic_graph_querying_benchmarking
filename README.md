@@ -1,6 +1,6 @@
 # Metagenomic assembly graph querying benchmarking sensitivity investigation
 
-[![DOI](https://zenodo.org/badge/881424901.svg)](https://doi.org/10.5281/zenodo.16987655)
+[![DOI](https://zenodo.org/badge/881424901.svg)](https://zenodo.org/badge/latestdoi/881424901)
 
 This repository accompanies the paper: Best of Both Worlds? Optimising Graph-Based Antimicrobial Resistance Gene Profiling. 
 
