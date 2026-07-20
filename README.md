@@ -13,17 +13,17 @@ The following describes in more detail the methods used including metagenome sim
 - Relative abundances obtained by running Bracken (v2.9) + kraken2 (v2.1.3) on the bacterial refseq database using "uniq" mode. 
 - Genomes downloaded from RefSeq using NCBI datasets v15.24.0:
 ```
-datasets download genome accession --dehydrated --inputfile to_download.tsv --filename high_complexity_assemblies.zip
+datasets download genome accession --dehydrated --inputfile <high_complexity_baseline_accessions> --filename high_complexity_assemblies.zip
 ```
 - Simulate Long read metagenome
     - Nanosim v3.1.0 3,000,000 reads
     ```
-    simulator.py metagenome -gl assembly_paths_high_nanosim_in.tsv -a abundances_high_nanosim_in.tsv -dl dna_type_high_nanosim_in.tsv -c pre-trained_models/metagenome_ERR3152364_Even/training --chimeric -t 18 --fastq -b guppy
+    simulator.py metagenome -gl <path_to_reference_assemblies> -a <path_to_abundances_file> -dl <path_to_dna_type_file> -c <pre-trained_models/metagenome_ERR3152364_Even/training> --chimeric -t 18 --fastq -b guppy
     ```
 - Simulate Short read metagenome
     - [x] InSilicoSeq v1.6.0 60,000,000 reads (~60% of the original number of reads corresponding to prokaryotic content)
     ```
-    iss generate --draft /data/raid1_HDD/David/graph_searching_sarand/high_complexity_assemblies/*.fna --abundance_file HC_iss_infile.tsv --model miseq --output miseq_reads --cpus 12 --n_reads 60M
+    iss generate --draft <path_to_reference_assemblies> --abundance_file <path_to_abundances_file> --model miseq --output miseq_reads --cpus 12 --n_reads 60M
     ```
 ### Simulated low complexity data
 - Based on relative abundances from healthy 1-3 year olds from [this paper](https://www.nature.com/articles/s41522-020-00171-7). 
@@ -31,11 +31,11 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
 - Simulate metagenomes number of reads based on (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9176275/)
     - [x] Nanosim v3.1.0 3,000,000 reads
     ```
-    simulator.py metagenome -gl assembly_paths_nanosim_in.tsv -a abundances_nanosim_in.tsv -dl dna_type_nanosim_in.tsv -c pre-trained_models/metagenome_ERR3152364_Even/training --chimeric -t 18 --fastq -b guppy
+    simulator.py metagenome -gl <path_to_reference_assemblies> -a <path_to_abundances_file> -dl <path_to_dna_type_file> -c <pre-trained_models/metagenome_ERR3152364_Even/training> --chimeric -t 18 --fastq -b guppy
     ```
     - InSilicoSeq v1.6.0 30,000,000 reads (same as original genome)
     ```
-    iss generate --draft /data/raid1_HDD/David/graph_searching_sarand/low_complexity_assemblies/*.fna --abundance_file abundances_in.tsv --model miseq --output miseq_reads --cpus 12 --n_reads 30M
+    iss generate --draft <path_to_reference_assemblies> --abundance_file <path_to_abundances_file> --model miseq --output miseq_reads --cpus 12 --n_reads 30M
     ```
 ### Real data [ZymoBIOMICS microbial community standards](https://academic.oup.com/gigascience/article/8/5/giz043/5486468)
 - Short reads of individual genomes in accessions: `reference_accessions/ZymoBIOMICS_accns.txt`
@@ -53,11 +53,11 @@ datasets download genome accession --dehydrated --inputfile to_download.tsv --fi
 ## Process reads and generate graphs 
 - Run fastp v0.23.4 on short reads for all data sets.
 ```
-fastp -i ERR2984773_1.fastq -I ERR2984773_2.fastq -o ERR2984773_fastp_out_1.fastq -O ERR2984773_fastp_out_2.fastq
+fastp -i <reads_1.fastq> -I <reads_2.fastq> -o <reads_fastp_out_1.fastq> -O <reads_fastp_out_2.fastq>
 ```
 - Run filtlong v0.2.1 on long reads for all data sets.
 ```
-filtlong --min_length 1000 --keep_percent 90 simulated_sample0_aligned_reads.fastq > simulated_sample0_aligned_reads_filtlong_out.fastq
+filtlong --min_length 1000 --keep_percent 90 <simulated_sample0_aligned_reads.fastq> > <simulated_sample0_aligned_reads_filtlong_out.fastq>
 ```
 - Assemble reads using:
     - SPAdes v3.15.5 ran in metagenome mode. See ```shell_scripts/meta_spades_run.sh```
