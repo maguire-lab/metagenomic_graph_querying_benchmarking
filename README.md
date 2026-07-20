@@ -142,7 +142,7 @@ filtlong --min_length 1000 --keep_percent 90 <simulated_sample0_aligned_reads.fa
 - Aside from Pathracer, no other tool identifies an ORF and assigns a single best hit to that locus. 
 - CARD is a redundant database in the sense that very similar sequences are present in the database. These homologous sequences will all align to a single region in the graph and the best one must be selected for each locus. 
 - Figure S6 described how in this study we have defined a hit locus in the context of a graph and assigned the best hit to that locus. 
-![figs6](figures/Figure_S6.svg)
+![FS5](figures_and_tables/Figure_S5.svg)
 - Once each alignment has been assigned a hit locus, the hit with the longest query coverage and best percent identity is selected as the best hit for that locus.
 - To assign hit loci to all alignments we use a brute force strategy that searches all alignments against all alignments. If using a dataset of similar size to this study expect this script to take a long time. If run in parallel for each tool, expect ~50 hours on a M1 Macbook Pro. 
 - See ```R_data_analysis_visualisation/subsampled_hit_region.R```
