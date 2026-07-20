@@ -1,4 +1,4 @@
-tool,data_type,read_type,subsample_perc,assembler,perc_ID,perc_query_coverage,number of correct AMR genes identified,number of AMR genes identified,recall,precision,cutoffs,f_score,number of baseline AMR genes
+tool,data_type,read_type,subsample_perc,assembler,perc_ID,perc_query_coverage,number of correct AMR genes identified,number of AMR genes identified,recall,precision,cuttoffs,f_score,number of baseline AMR genes
 Bandage,High Complexity,Long Read,100,MetaFlye,0.5,0.5,55,58,0.040801187,0.948275862,0.5_0.5,0.078236131,1348
 Bandage,High Complexity,Long Read,100,Shasta,0.5,0.5,0,0,0,0,0.5_0.5,0,1348
 Bandage,High Complexity,Short Read,100,Megahit,0.5,0.5,103,110,0.076409496,0.936363636,0.5_0.5,0.141289438,1348

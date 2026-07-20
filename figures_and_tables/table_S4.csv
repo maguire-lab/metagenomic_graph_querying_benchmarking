@@ -1,0 +1,17 @@
+data_type,read_type,assembler,max_F1_graph_only,tool_graph_only,max_F1_graph+contig,tool_graph+contig
+High Complexity,Long Read,MetaFlye,0.09039548,GraphAligner,0.09039548,GraphAligner
+High Complexity,Long Read,Shasta,0,Bandage,0,Bandage
+High Complexity,Short Read,Megahit,0.32,SPAligner,0.32,SPAligner
+High Complexity,Short Read,MetaSPAdes,0.32038835,SPAligner,0.32038835,SPAligner
+Low Complexity,Long Read,MetaFlye,0.666666667,GraphAligner,0.763636364,RGI on Contigs
+Low Complexity,Long Read,Shasta,0.541666667,GraphAligner,0.541666667,GraphAligner
+Low Complexity,Short Read,Megahit,0.690909091,GraphAligner,0.692307692,RGI on Contigs
+Low Complexity,Short Read,MetaSPAdes,0.690909091,GraphAligner,0.75,RGI on Contigs
+Mobile Element,Long Read,MetaFlye,0.486187845,GraphAligner,0.528301887,RGI on Contigs
+Mobile Element,Long Read,Shasta,0,Bandage,0,Bandage
+Mobile Element,Short Read,Megahit,0.204081633,SPAligner,0.204081633,SPAligner
+Mobile Element,Short Read,MetaSPAdes,0.615384615,GraphAligner,0.791878173,RGI on Contigs
+Real Zymbiomics,Long Read,MetaFlye,0.817337461,GraphAligner,0.817337461,GraphAligner
+Real Zymbiomics,Long Read,Shasta,0.74,GraphAligner,0.74,GraphAligner
+Real Zymbiomics,Short Read,Megahit,0.813664596,GraphAligner,0.851851852,RGI on Contigs
+Real Zymbiomics,Short Read,MetaSPAdes,0.817337461,GraphAligner,0.854489164,RGI on Contigs
